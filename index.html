@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bea, vrei să ieșim?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bea, vrei să ieșim?</h1>
+        <img src="https://via.placeholder.com/150" alt="Imagine drăguță" class="cute-img">
+        <div class="buttons">
+            <button class="yes-btn" onclick="yesAnswer()">Da</button>
+            <button class="no-btn" onclick="noAnswer()">Nu</button>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0; // Numărul de apăsări pe butonul "Nu"
+        const noMessages = [
+            "Ești sigură?",
+            "Gândește-te bine!",
+            "Chiar nu vrei?",
+            "Hai, spune Da!",
+            "Promit că va fi minunat!",
+            "Ultima șansă să accepți!"
+        ];
+
+        function yesAnswer() {
+            alert("Yay! Abia aștept să ieșim! 😊");
+        }
+
+        function noAnswer() {
+            const yesBtn = document.querySelector('.yes-btn');
+            const noBtn = document.querySelector('.no-btn');
+
+            // Crește dimensiunea butonului "Da"
+            const currentScale = parseFloat(yesBtn.style.transform.replace("scale(", "").replace(")", "")) || 1;
+            yesBtn.style.transform = `scale(${currentScale + 0.5})`;
+
+            // Schimbă textul butonului "Nu" pe baza numărului de clicuri
+            if (noClickCount < noMessages.length) {
+                noBtn.textContent = noMessages[noClickCount];
+            } else {
+                noBtn.textContent = "Acceptă! 🙃";
+            }
+
+            // Crește numărul de clicuri
+            noClickCount++;
+
+            // Dacă butonul "Da" devine foarte mare, ocupă întregul ecran
+            if (currentScale >= 3) {
+                yesBtn.style.width = "100vw";
+                yesBtn.style.height = "100vh";
+                yesBtn.style.fontSize = "2em";
+                yesBtn.textContent = "DA 💖";
+                noBtn.style.display = "none"; // Ascunde butonul "Nu"
+            }
+        }
+    </script>
+</body>
+</html>
